@@ -76,7 +76,9 @@ export default function StickyCarousel() {
           setActiveIndex(0);
         }
       } catch (error) {
-        console.error('Error loading announcements:', error);
+        if (error?.code !== 'permission-denied') {
+          console.error('Error loading announcements:', error);
+        }
 
         const next = localAnnouncements.sort((a, b) => getAnnouncementTime(b) - getAnnouncementTime(a));
         if (!cancelled) {
