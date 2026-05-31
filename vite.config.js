@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(() => {
-  const basePath = process.env.BASE_PATH || '/';
+  const basePath = process.env.BASE_PATH || '/JUSTIFI-WEB/';
   const normalizedBasePath = basePath.endsWith('/') ? basePath : `${basePath}/`;
 
   function rewritePublicAssetPaths() {
@@ -24,7 +24,7 @@ export default defineConfig(() => {
   }
 
   return {
-    base: basePath,
+    base: normalizedBasePath,
     plugins: [rewritePublicAssetPaths(), react()],
     server: {
       port: 3000
