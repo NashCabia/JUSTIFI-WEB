@@ -1,33 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(() => {
-  const basePath = process.env.BASE_PATH || '/JUSTIFI-WEB/';
-  const normalizedBasePath = basePath.endsWith('/') ? basePath : `${basePath}/`;
-
-  function rewritePublicAssetPaths() {
-    return {
-      name: 'rewrite-public-asset-paths',
-      enforce: 'pre',
-      transform(code, id) {
-        if (!id.includes('/src/') && !id.endsWith('/index.html') && !id.endsWith('index.html')) {
-          return null;
-        }
-
-        if (!code.includes('/assets/')) {
-          return null;
-        }
-
-        return code.replace(/\/assets\//g, `${normalizedBasePath}assets/`);
-      }
-    };
+export default defineConfig({
+  plugins: [react()],
+  base: '/JUSTIFI-WEB/',
+  server: {
+    port: 3000
   }
-
-  return {
-    base: normalizedBasePath,
-    plugins: [rewritePublicAssetPaths(), react()],
-    server: {
-      port: 3000
-    }
-  };
 });
